@@ -120,15 +120,14 @@ public class Player extends GameObject {
 		
 		movement();
 		
-		//System.out.println(velX + "\n" + velY);
 		
 		x += velX;
 		y += velY;
 		
-		//System.out.println(x + "\n" + y);
-		
 		collision();
-		
+
+		//System.out.println(velX + "\n" + velY);
+		//System.out.println(x + "\n" + y);
 		
 	}
 
