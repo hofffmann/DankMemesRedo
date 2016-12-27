@@ -10,13 +10,14 @@ public class Game extends Canvas implements Runnable {
 	
 	private static final long serialVersionUID = 1550691097823471818L;
 	
-	public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
+	public static final int WIDTH = 640, /*HEIGHT = WIDTH / 12 * 9;*/HEIGHT = 480;
 	
 	private Thread thread;
 	private boolean running = false;
 		
 	private Random r;
 	private Handler handler;
+	static Window eggs;
 	
 	public Game() {
 		
@@ -24,12 +25,12 @@ public class Game extends Canvas implements Runnable {
 		this.addKeyListener(new KeyInput(handler));
 		
 		
-		new Window(WIDTH, HEIGHT, "How to Game", this);
+		eggs = new Window(WIDTH, HEIGHT, "How to Game", this);
 		
 		r = new Random();
 		
-		handler.addObject(new Player(WIDTH/2-32, HEIGHT/2-32, ID.Player));
-		handler.addObject(new Player(WIDTH/2+64, HEIGHT/2-32, ID.Player2));
+		handler.addObject(new Player(WIDTH/2-160, HEIGHT/2-128, ID.Player));
+		handler.addObject(new Player(WIDTH/2+64, HEIGHT/2-128, ID.Player2));
 		
 	}
 
@@ -61,11 +62,12 @@ public class Game extends Canvas implements Runnable {
 			lastTime = now;
 			while(delta >= 1) {
 				tick();
-				delta--;
-			}
-			if(running)
 				render();
-			frames++;
+				delta--;
+				frames++;
+			}
+			//if(running)
+				//render();
 		
 			if(System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
@@ -99,6 +101,7 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	public static void main(String[] args){
+		System.out.println(WIDTH + "\n" + HEIGHT);
 		new Game();
 	}
 	
