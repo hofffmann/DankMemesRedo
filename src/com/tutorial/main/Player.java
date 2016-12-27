@@ -32,7 +32,7 @@ public class Player extends GameObject {
 			velX = -10;
 		}
 		
-		System.out.println(velX + "\n" + velY);
+		//System.out.println(velX + "\n" + velY);
 		
 		x += velX;
 		y += velY;
