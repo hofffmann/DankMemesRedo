@@ -15,22 +15,81 @@ public class Player extends GameObject {
 	}
 
 	public void tick() {
-		
-		if(velY >= 10) {
-			velY = 10;
+		if(left && right) 
+		{
+			left = false;
+			right = false;
+		}
+		else
+		{
+			if(left) {
+				if(Math.abs(velY) > 5)velX -= 2;
+				else
+				velX -= 0.5;
+			}
+			if(right) {
+				if(Math.abs(velY) > 5)velX += 2;
+				else
+				velX += 0.5;
+			}
+		}
+
+		if(!left && !right)
+		{
+			if(velX < 0) {
+				velX += 1;
+				if(velX > 2) 
+					velX = 0;
+			}
+			
+			if(velX > 0) {
+				velX -= 1;
+				if(velX < 2)
+					velX = 0;
+			}
 		}
 		
-		if(velY <= -10) {
-			velY = -10;
+		
+		
+		if(up && down) 
+		{
+			up = false;
+			down = false;
+		}
+		else
+		{
+			if(up) {
+				if(Math.abs(velX) > 5)velY -= 2;
+				else
+				velY -= 0.5;
+			}
+			if(down) {
+				if(Math.abs(velX) > 5)velY += 2;
+				else
+				velY += 0.5;
+			}
 		}
 		
-		if(velX >= 10) {
-			velX = 10;
+		if(!up && !down)
+		{
+			if(velY < 0) {
+				velY += 1;
+				if(velY > 2) 
+					velY = 0;
+			}
+			
+			if(velY > 0) {
+				velY -= 1;
+				if(velY < 2)
+					velY = 0;
+			}
 		}
 		
-		if(velX <= -10) {
-			velX = -10;
-		}
+		if(velX > 10)velX = 10;
+		if(velX < -10)velX = -10;
+		if(velY > 10)velY = 10;
+		if(velY < -10)velY = -10;
+			
 		
 		//System.out.println(velX + "\n" + velY);
 		
