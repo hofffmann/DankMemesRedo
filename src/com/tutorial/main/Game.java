@@ -29,8 +29,9 @@ public class Game extends Canvas implements Runnable {
 		
 		r = new Random();
 		
-		handler.addObject(new Player(WIDTH/2-160, HEIGHT/2-128, ID.Player));
-		handler.addObject(new Player(WIDTH/2+64, HEIGHT/2-128, ID.Player2));
+		handler.addObject(new Player((int)128 - window.frame.getInsets().left, (int)HEIGHT/2, ID.Player));
+		handler.addObject(new Player((int)WIDTH-(128 + 2 * (window.frame.getInsets().left + window.frame.getInsets().right)), (int)HEIGHT/2, ID.Player2));
+		handler.addObject(new Ball(WIDTH/2, HEIGHT/2, ID.Ball));
 		
 	}
 
@@ -101,7 +102,6 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	public static void main(String[] args){
-		System.out.println(WIDTH + "\n" + HEIGHT);
 		new Game();
 	}
 	

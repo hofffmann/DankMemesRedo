@@ -16,7 +16,7 @@ public class Player extends GameObject {
 	}
 	
 	public void movement() {
-		if(left && right) 
+/*		if(left && right) 
 		{
 			if(velX < 0) {
 				velX += 1;
@@ -61,7 +61,7 @@ public class Player extends GameObject {
 			if(velX < 2)
 				velX = 0;
 			}
-		}
+		}*/
 		
 		
 		
@@ -86,12 +86,12 @@ public class Player extends GameObject {
 			if(up) {
 				if(Math.abs(velX) > 5)velY -= 2;
 				else
-				velY -= 0.5;
+				velY -= 1;
 			}
 			if(down) {
 				if(Math.abs(velX) > 5)velY += 2;
 				else
-				velY += 0.5;
+				velY += 1;
 			}
 		}
 		
