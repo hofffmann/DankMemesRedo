@@ -39,14 +39,16 @@ public class Player extends GameObject {
 		{
 			if(velX < 0) {
 				velX += 1;
-				if(velX > 2) 
-					velX = 0;
+				
+			if(velX > 2) 
+				velX = 0;
 			}
 			
 			if(velX > 0) {
 				velX -= 1;
-				if(velX < 2)
-					velX = 0;
+				
+			if(velX < 2)
+				velX = 0;
 			}
 		}
 		
