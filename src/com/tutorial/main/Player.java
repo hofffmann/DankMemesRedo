@@ -15,6 +15,25 @@ public class Player extends GameObject {
 	}
 
 	public void tick() {
+		
+		if(velY >= 10) {
+			velY = 10;
+		}
+		
+		if(velY <= -10) {
+			velY = -10;
+		}
+		
+		if(velX >= 10) {
+			velX = 10;
+		}
+		
+		if(velX <= -10) {
+			velX = -10;
+		}
+		
+		System.out.println(velX + "\n" + velY);
+		
 		x += velX;
 		y += velY;
 		
