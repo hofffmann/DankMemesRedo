@@ -7,7 +7,7 @@ import java.util.Random;
 public class Player extends GameObject {
 
 	Random r = new Random();
-	final int size = 32;
+	final int height = 128, size = 24;
 	
 	public Player(int x, int y, ID id) {
 		super(x, y, id);
@@ -16,6 +16,7 @@ public class Player extends GameObject {
 	}
 	
 	public void movement() {
+		//x axis is unused for movement in Pong.
 /*		if(left && right) 
 		{
 			if(velX < 0) {
@@ -119,20 +120,23 @@ public class Player extends GameObject {
 	}
 	
 	public void collision() {
-		if(x<0) {
+		
+		//x is unused in Pong.
+		
+		/*if(x<0) {
 			x = 0;
 			velX = 0;
 		}
 		if(x > Game.WIDTH - (Game.window.frame.getInsets().left + Game.window.frame.getInsets().right) - size) {
 			x = Game.WIDTH - (Game.window.frame.getInsets().left + Game.window.frame.getInsets().right) - size;
 			velX = 0;
-		}
+		}*/
 		if(y<0) {
 			y = 0;
 			velY = 0;
 		}
-		if(y > Game.HEIGHT - (Game.window.frame.getInsets().top + Game.window.frame.getInsets().bottom) - size) {
-			y = Game.HEIGHT - (Game.window.frame.getInsets().top + Game.window.frame.getInsets().bottom) - size;
+		if(y > Game.HEIGHT - (Game.window.frame.getInsets().top + Game.window.frame.getInsets().bottom) - height) {
+			y = Game.HEIGHT - (Game.window.frame.getInsets().top + Game.window.frame.getInsets().bottom) - height;
 			velY = 0;
 		}
 		
@@ -141,7 +145,6 @@ public class Player extends GameObject {
 	public void tick() {
 		
 		movement();
-		
 		
 		x += velX;
 		y += velY;
@@ -156,7 +159,7 @@ public class Player extends GameObject {
 	public void render(Graphics g) {
 		if(id == ID.Player) g.setColor(Color.white);
 		else if(id == ID.Player2) g.setColor(Color.blue);
-		g.fillRect(x, y, size, size);
+		g.fillRect(x, y, size, height);
 	}
 
 }

@@ -17,8 +17,8 @@ public class Ball extends GameObject {
 		
 	}
 	
-	public void movement() {
-		
+	public void checkScore() {
+		//if(x > .x)
 		
 	}
 	
@@ -40,6 +40,7 @@ public class Ball extends GameObject {
 			velY = -1 * velY;
 		}
 		
+		
 	}
 	
 	public int speed() {
@@ -53,7 +54,6 @@ public class Ball extends GameObject {
 		
 		collision();
 		//checkScore();
-		
 		
 		x += velX;
 		y += velY;
