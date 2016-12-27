@@ -17,7 +17,7 @@ public class Game extends Canvas implements Runnable {
 		
 	private Random r;
 	private Handler handler;
-	static Window eggs;
+	static Window window;
 	
 	public Game() {
 		
@@ -25,7 +25,7 @@ public class Game extends Canvas implements Runnable {
 		this.addKeyListener(new KeyInput(handler));
 		
 		
-		eggs = new Window(WIDTH, HEIGHT, "How to Game", this);
+		window = new Window(WIDTH, HEIGHT, "How to Game", this);
 		
 		r = new Random();
 		

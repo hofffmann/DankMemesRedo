@@ -97,16 +97,16 @@ public class Player extends GameObject {
 			x = 0;
 			velX = 0;
 		}
-		if(x > Game.WIDTH - (Game.eggs.frame.getInsets().left + Game.eggs.frame.getInsets().right) - size) {
-			x = Game.WIDTH - (Game.eggs.frame.getInsets().left + Game.eggs.frame.getInsets().right) - size;
+		if(x > Game.WIDTH - (Game.window.frame.getInsets().left + Game.window.frame.getInsets().right) - size) {
+			x = Game.WIDTH - (Game.window.frame.getInsets().left + Game.window.frame.getInsets().right) - size;
 			velX = 0;
 		}
 		if(y<0) {
 			y = 0;
 			velY = 0;
 		}
-		if(y > Game.HEIGHT - (Game.eggs.frame.getInsets().top + Game.eggs.frame.getInsets().bottom) - size) {
-			y = Game.HEIGHT - (Game.eggs.frame.getInsets().top + Game.eggs.frame.getInsets().bottom) - size;
+		if(y > Game.HEIGHT - (Game.window.frame.getInsets().top + Game.window.frame.getInsets().bottom) - size) {
+			y = Game.HEIGHT - (Game.window.frame.getInsets().top + Game.window.frame.getInsets().bottom) - size;
 			velY = 0;
 		}
 		
