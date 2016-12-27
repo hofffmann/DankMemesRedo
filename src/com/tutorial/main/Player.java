@@ -18,8 +18,19 @@ public class Player extends GameObject {
 	public void movement() {
 		if(left && right) 
 		{
-			left = false;
-			right = false;
+			if(velX < 0) {
+				velX += 1;
+				
+			if(velX > -2) 
+				velX = 0;
+			}
+			
+			if(velX > 0) {
+				velX -= 1;
+				
+			if(velX < 2)
+				velX = 0;
+			}
 		}
 		else
 		{
