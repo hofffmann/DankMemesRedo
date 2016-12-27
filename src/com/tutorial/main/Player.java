@@ -13,8 +13,8 @@ public class Player extends GameObject {
 		
 		
 	}
-
-	public void tick() {
+	
+	public void movement() {
 		if(left && right) 
 		{
 			left = false;
@@ -89,7 +89,11 @@ public class Player extends GameObject {
 		if(velX < -10)velX = -10;
 		if(velY > 10)velY = 10;
 		if(velY < -10)velY = -10;
-			
+	}
+
+	public void tick() {
+		
+		movement();
 		
 		//System.out.println(velX + "\n" + velY);
 		
