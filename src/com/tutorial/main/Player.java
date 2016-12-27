@@ -40,7 +40,7 @@ public class Player extends GameObject {
 			if(velX < 0) {
 				velX += 1;
 				
-			if(velX > 2) 
+			if(velX > -2) 
 				velX = 0;
 			}
 			
@@ -78,7 +78,7 @@ public class Player extends GameObject {
 			if(velY < 0) {
 				velY += 1;
 				
-			if(velY > 2) 
+			if(velY > -2) 
 				velY = 0;
 			}
 			
