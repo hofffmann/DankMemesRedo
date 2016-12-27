@@ -77,14 +77,16 @@ public class Player extends GameObject {
 		{
 			if(velY < 0) {
 				velY += 1;
-				if(velY > 2) 
-					velY = 0;
+				
+			if(velY > 2) 
+				velY = 0;
 			}
 			
 			if(velY > 0) {
 				velY -= 1;
-				if(velY < 2)
-					velY = 0;
+				
+			if(velY < 2)
+				velY = 0;
 			}
 		}
 		
