@@ -1,0 +1,1 @@
+-Allow keyboard input when Window is selected, instead of just when the moving space is selected (you have to click on the black area for keyboard input to work, can't just select the window)
