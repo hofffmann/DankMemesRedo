@@ -20,16 +20,14 @@ public class Game extends Canvas implements Runnable {
 	private Handler handler;
 	static Window window;
 
-	public static int fps = 30;
+	public static int fps = 60;
 	public static double fpsMult = 60 / (double)fps;
 	public static long lastRenderTime = 0;
 	public static long desiredRenderInterval = 1000000000 / fps;
 
 	public Game() {
-
 		handler = new Handler();
 		this.addKeyListener(new KeyInput(handler));
-
 
 		window = new Window(WIDTH, HEIGHT, "How to Game", this);
 
@@ -38,7 +36,6 @@ public class Game extends Canvas implements Runnable {
 		handler.addObject(new Player((int)128 - window.frame.getInsets().left, (int)HEIGHT/2 - (64 + (window.frame.getInsets().top)), ID.Player));
 		handler.addObject(new Player((int)WIDTH-(128 + 2 * (window.frame.getInsets().left + window.frame.getInsets().right)), (int)HEIGHT/2 - (64 + (window.frame.getInsets().top)), ID.Player2));
 		handler.addObject(new Ball(WIDTH/2, HEIGHT/2, ID.Ball));
-
 	}
 
 	public synchronized void start(){

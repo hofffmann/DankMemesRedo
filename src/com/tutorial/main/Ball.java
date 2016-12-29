@@ -18,7 +18,6 @@ public class Ball extends GameObject {
 	
 	public void checkScore() {
 		//if(x > .x)
-		
 	}
 	
 	public void collision() {
@@ -38,19 +37,15 @@ public class Ball extends GameObject {
 			y = Game.HEIGHT - (Game.window.frame.getInsets().top + Game.window.frame.getInsets().bottom) - size;
 			velY = -1 * velY;
 		}
-		
-		
 	}
 	
 	public int speed() {
 		int x = 24 * (int)Math.sqrt(Math.pow(velX, 2) + Math.pow(velY, 2));
 		if(x > 255)x = 255;
 		return x;
-		
 	}
 
 	public void tick() {
-		
 		collision();
 		//checkScore();
 		
@@ -59,13 +54,11 @@ public class Ball extends GameObject {
 		float mult = nanosecondsSinceLastRender / interval;
 		x += velX * mult;
 		y += velY * mult;
-		
 	}
 
 	public void render(Graphics g) {
 		g.setColor(new Color(255, 255 - speed(), 255 - speed()));
 		g.fillOval(x, y, size, size);
-		
 	}
 
 }

@@ -121,7 +121,6 @@ public class Player extends GameObject {
 	}
 	
 	public void collision() {
-		
 		//x is unused in Pong.
 		
 		/*if(x<0) {
@@ -140,11 +139,9 @@ public class Player extends GameObject {
 			y = Game.HEIGHT - (Game.window.frame.getInsets().top + Game.window.frame.getInsets().bottom) - height;
 			velY = 0;
 		}
-		
 	}
 
 	public void tick() {
-		
 		movement();
 		
 		x += velX;
@@ -154,7 +151,6 @@ public class Player extends GameObject {
 
 		//System.out.println(velX + "\n" + velY);
 		//System.out.println(x + "\n" + y);
-		
 	}
 
 	public void render(Graphics g) {
