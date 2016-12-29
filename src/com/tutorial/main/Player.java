@@ -65,7 +65,7 @@ public class Player extends GameObject {
 		long nanosecondsSinceLastRender = (System.nanoTime() - Game.lastRenderTime);
 		float interval = 1.7E7f;
 		float mult = nanosecondsSinceLastRender / interval;
-		System.out.println(mult);
+		//System.out.println(mult);
 		
 		if(up && down) 
 		{
