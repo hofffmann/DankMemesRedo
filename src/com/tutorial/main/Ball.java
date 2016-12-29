@@ -14,7 +14,6 @@ public class Ball extends GameObject {
 		super (x, y, id);
 		velX = 5;
 		velY = 5;
-		
 	}
 	
 	public void checkScore() {
@@ -55,8 +54,11 @@ public class Ball extends GameObject {
 		collision();
 		//checkScore();
 		
-		x += velX;
-		y += velY;
+		long nanosecondsSinceLastRender = (System.nanoTime() - Game.lastRenderTime);
+		float interval = 1.7E7f;
+		float mult = nanosecondsSinceLastRender / interval;
+		x += velX * mult;
+		y += velY * mult;
 		
 	}
 

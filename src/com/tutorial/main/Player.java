@@ -11,8 +11,6 @@ public class Player extends GameObject {
 	
 	public Player(int x, int y, ID id) {
 		super(x, y, id);
-		
-		
 	}
 	
 	public void movement() {
@@ -64,19 +62,22 @@ public class Player extends GameObject {
 			}
 		}*/
 		
-		
+		long nanosecondsSinceLastRender = (System.nanoTime() - Game.lastRenderTime);
+		float interval = 1.7E7f;
+		float mult = nanosecondsSinceLastRender / interval;
+		System.out.println(mult);
 		
 		if(up && down) 
 		{
 			if(velY < 0) {
-				velY += 1;
+				velY += 1 * mult;
 				
 			if(velY > -2) 
 				velY = 0;
 			}
 			
 			if(velY > 0) {
-				velY -= 1;
+				velY -= 1 * mult;
 				
 			if(velY < 2)
 				velY = 0;
@@ -85,38 +86,38 @@ public class Player extends GameObject {
 		else
 		{
 			if(up) {
-				if(Math.abs(velX) > 5)velY -= 2;
+				if(Math.abs(velX) > 5)velY -= 2 * mult;
 				else
-				velY -= 1;
+				velY -= 1 * mult;
 			}
 			if(down) {
-				if(Math.abs(velX) > 5)velY += 2;
+				if(Math.abs(velX) > 5)velY += 2 * mult;
 				else
-				velY += 1;
+				velY += 1 * mult;
 			}
 		}
 		
 		if(!up && !down)
 		{
 			if(velY < 0) {
-				velY += 1;
+				velY += 1 * mult;
 				
 			if(velY > -2) 
 				velY = 0;
 			}
 			
 			if(velY > 0) {
-				velY -= 1;
+				velY -= 1 * mult;
 				
 			if(velY < 2)
 				velY = 0;
 			}
 		}
 		
-		if(velX > 10)velX = 10;
-		if(velX < -10)velX = -10;
-		if(velY > 10)velY = 10;
-		if(velY < -10)velY = -10;
+		if(velX > 10 * mult)velX = 10 * mult;
+		if(velX < -10 * mult)velX = -10 * mult;
+		if(velY > 10 * mult)velY = 10 * mult;
+		if(velY < -10 * mult)velY = -10 * mult;
 	}
 	
 	public void collision() {
