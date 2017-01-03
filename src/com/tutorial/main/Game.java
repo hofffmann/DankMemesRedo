@@ -18,7 +18,7 @@ public class Game extends Canvas implements Runnable {
 	private Handler handler;
 	static Window window;
 
-	public static int fps = 64;
+	public static double fps = 64.0;
 	public static long lastRenderTime = 0;
 
 	public Game() {
@@ -46,6 +46,46 @@ public class Game extends Canvas implements Runnable {
 			e.printStackTrace();
 		}
 	}
+	
+	public void run2() {
+		long lastTime = System.nanoTime();
+		double amountOfTicks = 60.0;
+		double ns = 1000000000 / amountOfTicks;
+		double delta = 0;
+		long timer = System.currentTimeMillis();
+		int frames = 0;
+		long timeOfLastRender = System.nanoTime();
+		long differenceSum = 0;
+		long sums = 0;
+		while(running) {
+			long now = System.nanoTime();
+			delta += (now-lastTime) / ns;
+			lastTime = now;
+			while(delta >= 1) {
+				tick();
+
+				long difference = System.nanoTime() - timeOfLastRender;
+				long differenceBetweenDesiredInterval = difference - (long)ns;
+				//renderSum += differenceBetweenDesiredInterval;
+				sums++;
+				//System.out.println("Average delay in ns: " + (renderSum / sums));
+				System.out.println("Time passed: " + differenceBetweenDesiredInterval);
+				
+				//System.out.println("Average difference: " + differenceSum / sums);
+				render();
+				timeOfLastRender = System.nanoTime();
+				delta--;
+				frames++;
+			}
+			
+			if(System.currentTimeMillis() - timer > 1000) {
+				timer += 1000;
+				System.out.println("FPS: " + frames);
+				frames = 0;
+			}
+		}
+		stop();
+	}
 
 	public void run() {
 		long timer = System.currentTimeMillis();
@@ -57,7 +97,7 @@ public class Game extends Canvas implements Runnable {
 		
 		int frameMonitorChecksPerSecond = 4;
 		int frameMonitorSleepTime = 1000 / frameMonitorChecksPerSecond;
-		FrameMonitor frameMonitor = new FrameMonitor(fps, frameMonitorChecksPerSecond);
+		FrameMonitor frameMonitor = new FrameMonitor((int)fps, frameMonitorChecksPerSecond);
 		
 		long renderSum = 0;
 		long sums = 0;
@@ -70,26 +110,26 @@ public class Game extends Canvas implements Runnable {
 		long lastTime = System.nanoTime();
 		
 		while(running) {
-			//sleepNanos((long)(frameMonitor.renderInterval * .9));
+			sleepNanos((long)(frameMonitor.renderInterval * .9));
 			//sleepNanos((long)(1000000000 / fps));
 			
 			//dx += ((double)(System.nanoTime() - lastRenderTime) / (double)frameMonitor.renderInterval);
 			//System.out.println(dx);
 			
-			/*
+			int count_t = 0;
 			while((lastRenderTime + frameMonitor.renderInterval) - System.nanoTime() > 600000){
 				// Sleep for half the remaining time
-				sleepNanos( (long) (.5) * (lastRenderTime + frameMonitor.renderInterval) - System.nanoTime());
+				sleepNanos( (long) (.2) * (lastRenderTime + frameMonitor.renderInterval) - System.nanoTime());
+				count_t++;
 			}
-			*/
+			//System.out.println(count_t + " little sleeps");
 			
-			
-			while(dx<1){
+			while(dx < 1){
 				now = System.nanoTime();
 				long timePassed = now - lastTime;
 				lastTime = now;
 				//dx += ((double)(System.nanoTime() - lastRenderTime) / (double)frameMonitor.renderInterval);
-				dx += ((double)(timePassed) / (double)(1000000000.0/fps));
+				dx += (timePassed / (1000000000.0/60.0));
 				//System.out.println("dx: " + dx);
 			}
 			
@@ -109,7 +149,7 @@ public class Game extends Canvas implements Runnable {
 			}
 			
 			if(System.currentTimeMillis() - fpsTimer >= frameMonitorSleepTime) {
-				frameMonitor.updateAverageFrames(quarterFrames);
+				//frameMonitor.updateAverageFrames(quarterFrames);
 				fpsTimer = System.currentTimeMillis();
 				quarterFrames = 0;
 			}
@@ -122,7 +162,7 @@ public class Game extends Canvas implements Runnable {
 			}
 			
 			if(System.currentTimeMillis() - longTimer >= (5000)) {
-				frameMonitor.updateRenderInterval();
+				//frameMonitor.updateRenderInterval();
 				longTimer = System.currentTimeMillis();
 			}
 		}
