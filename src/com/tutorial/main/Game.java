@@ -4,7 +4,6 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class Game extends Canvas implements Runnable {
@@ -15,23 +14,18 @@ public class Game extends Canvas implements Runnable {
 
 	private Thread thread;
 	private boolean running = false;
-
-	private Random r;
+	
 	private Handler handler;
 	static Window window;
 
 	public static int fps = 60;
-	public static double fpsMult = 60 / (double)fps;
 	public static long lastRenderTime = 0;
-	public static long desiredRenderInterval = 1000000000 / fps;
 
 	public Game() {
 		handler = new Handler();
 		this.addKeyListener(new KeyInput(handler));
 
 		window = new Window(WIDTH, HEIGHT, "How to Game", this);
-
-		r = new Random();
 
 		handler.addObject(new Player((int)128 - window.frame.getInsets().left, (int)HEIGHT/2 - (64 + (window.frame.getInsets().top)), ID.Player));
 		handler.addObject(new Player((int)WIDTH-(128 + 2 * (window.frame.getInsets().left + window.frame.getInsets().right)), (int)HEIGHT/2 - (64 + (window.frame.getInsets().top)), ID.Player2));
@@ -55,16 +49,35 @@ public class Game extends Canvas implements Runnable {
 
 	public void run() {
 		long timer = System.currentTimeMillis();
+		long fpsTimer = System.currentTimeMillis();
 		int frames = 0;
+		int quarterFrames = 0;
+		lastRenderTime = System.nanoTime();
+		
+		int frameMonitorChecksPerSecond = 4;
+		int frameMonitorSleepTime = 1000 / frameMonitorChecksPerSecond;
+		FrameMonitor frameMonitor = new FrameMonitor(fps, frameMonitorChecksPerSecond);
+		
 		while(running) {
-			sleepNanos((long)desiredRenderInterval);
+			//sleepNanos((long)frameMonitor.renderInterval);
+			sleepNanos((long)(1000000000 / fps));
 			
 			tick();
 			render();
 			lastRenderTime = System.nanoTime();
 			frames++;
-
-			if(System.currentTimeMillis() - timer > (1000)) {
+			quarterFrames++;
+			
+			/*
+			if(System.currentTimeMillis() - fpsTimer >= frameMonitorSleepTime) {
+				frameMonitor.updateAverageFrames(frames);
+				frameMonitor.updateRenderInterval();
+				fpsTimer = System.currentTimeMillis();
+				quarterFrames = 0;
+			}
+			*/
+			
+			if(System.currentTimeMillis() - timer >= (1000)) {
 				System.out.println("FPS: " + frames);
 				frames = 0;
 				timer = System.currentTimeMillis();
