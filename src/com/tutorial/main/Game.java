@@ -59,11 +59,19 @@ public class Game extends Canvas implements Runnable {
 		int frameMonitorSleepTime = 1000 / frameMonitorChecksPerSecond;
 		FrameMonitor frameMonitor = new FrameMonitor(fps, frameMonitorChecksPerSecond);
 		
+		long renderSum = 0;
+		long sums = 0;
+		
 		while(running) {
 			sleepNanos((long)frameMonitor.renderInterval);
 			//sleepNanos((long)(1000000000 / fps));
 			
 			tick();
+			
+			long difference = System.nanoTime() - lastRenderTime;
+			renderSum += difference;
+			sums++;
+			
 			render();
 			lastRenderTime = System.nanoTime();
 			frames++;
@@ -76,7 +84,7 @@ public class Game extends Canvas implements Runnable {
 			}
 			
 			if(System.currentTimeMillis() - timer >= (1000)) {
-				System.out.println("FPS: " + frames);
+				System.out.println("FPS: " + frames + ", Average delay in ns: " + (renderSum / sums));
 				//System.out.println("Render interval: " + frameMonitor.renderInterval);
 				frames = 0;
 				timer = System.currentTimeMillis();
