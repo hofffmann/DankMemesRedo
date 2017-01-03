@@ -59,10 +59,15 @@ public class Game extends Canvas implements Runnable {
 			lastTime = now;
 			while(delta >= 1) {
 				tick();
+
 				long difference = System.nanoTime() - timeOfLastRender;
-				differenceSum += difference;
+				long differenceBetweenDesiredInterval = difference - (long)ns;
+				//renderSum += differenceBetweenDesiredInterval;
 				sums++;
-				System.out.println("Average difference: " + differenceSum / sums);
+				//System.out.println("Average delay in ns: " + (renderSum / sums));
+				System.out.println("Time passed: " + differenceBetweenDesiredInterval);
+				
+				//System.out.println("Average difference: " + differenceSum / sums);
 				render();
 				timeOfLastRender = System.nanoTime();
 				delta--;
