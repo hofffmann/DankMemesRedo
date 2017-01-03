@@ -8,11 +8,13 @@ public abstract class GameObject {
 	protected ID id;
 	protected double velX, velY;
 	protected boolean up, down, left, right;
+	Game game;
 	
-	public GameObject(int x, int y, ID id) {
+	public GameObject(int x, int y, ID id, Game game) {
 		this.x = x;
 		this.y = y;
 		this.id = id;
+		this.game = game;
 	}
 	
 	public abstract void tick();

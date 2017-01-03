@@ -31,4 +31,12 @@ public class Handler {
 		this.object.remove(object);
 	}
 	
+	public GameObject getObject(ID id){
+		for(int i=0; i<object.size(); i++){
+			if(object.get(i).id == id){
+				return object.get(i);
+			}
+		}
+		return null;
+	}
 }

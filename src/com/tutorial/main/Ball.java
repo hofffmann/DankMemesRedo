@@ -10,8 +10,8 @@ public class Ball extends GameObject {
 	protected int speed;
 	final int size = 32;
 	
-	public Ball(int x, int y, ID id) {
-		super (x, y, id);
+	public Ball(int x, int y, ID id, Game game) {
+		super (x, y, id, game);
 		velX = 5;
 		velY = 5;
 	}
@@ -36,6 +36,17 @@ public class Ball extends GameObject {
 		if(y > Game.HEIGHT - (Game.window.frame.getInsets().top + Game.window.frame.getInsets().bottom) - size) {
 			y = Game.HEIGHT - (Game.window.frame.getInsets().top + Game.window.frame.getInsets().bottom) - size;
 			velY = -1 * velY;
+		}
+		playerCollision();
+	}
+	
+	public void playerCollision() {
+		Player player1 = (Player)game.handler.getObject(ID.Player1);
+		Player player2 = (Player)game.handler.getObject(ID.Player2);
+		if((Math.abs(x - player1.x) <= 20) && (Math.abs(y - player1.y) <= (player1.height/2))){
+			velX = -1 * velX;
+		}else if((Math.abs(x - player2.x) <= 20) && (Math.abs(y - player2.y) <= (player2.height/2))){
+			velX = -1 * velX;
 		}
 	}
 	

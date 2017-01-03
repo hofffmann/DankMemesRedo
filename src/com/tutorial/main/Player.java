@@ -9,8 +9,8 @@ public class Player extends GameObject {
 	Random r = new Random();
 	final int height = 128, size = 24;
 	
-	public Player(int x, int y, ID id) {
-		super(x, y, id);
+	public Player(int x, int y, ID id, Game game) {
+		super(x, y, id, game);
 	}
 	
 	public void movement() {
@@ -154,7 +154,7 @@ public class Player extends GameObject {
 	}
 
 	public void render(Graphics g) {
-		if(id == ID.Player) g.setColor(Color.white);
+		if(id == ID.Player1) g.setColor(Color.white);
 		else if(id == ID.Player2) g.setColor(Color.blue);
 		g.fillRect(x, y, size, height);
 	}
