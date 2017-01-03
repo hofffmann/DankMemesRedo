@@ -33,11 +33,7 @@ public class KeyInput extends KeyAdapter {
 				if(key == KeyEvent.VK_RIGHT) tempObject.setRight(true);
 				if(key == KeyEvent.VK_LEFT) tempObject.setLeft(true);
 			}
-			
-			
-			
 		}
-		
 	}
 	
 	public void keyReleased(KeyEvent e) {
@@ -62,11 +58,6 @@ public class KeyInput extends KeyAdapter {
 				if(key == KeyEvent.VK_RIGHT) tempObject.setRight(false);
 				if(key == KeyEvent.VK_LEFT) tempObject.setLeft(false);
 			}
-			
-			
-			
 		}
-		
 	}
-
 }

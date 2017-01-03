@@ -18,7 +18,7 @@ public class Game extends Canvas implements Runnable {
 	private Handler handler;
 	static Window window;
 
-	public static int fps = 70;
+	public static int fps = 64;
 	public static long lastRenderTime = 0;
 
 	public Game() {
@@ -50,6 +50,7 @@ public class Game extends Canvas implements Runnable {
 	public void run() {
 		long timer = System.currentTimeMillis();
 		long fpsTimer = System.currentTimeMillis();
+		long longTimer = System.currentTimeMillis();
 		int frames = 0;
 		int quarterFrames = 0;
 		lastRenderTime = System.nanoTime();
@@ -70,7 +71,6 @@ public class Game extends Canvas implements Runnable {
 			
 			if(System.currentTimeMillis() - fpsTimer >= frameMonitorSleepTime) {
 				frameMonitor.updateAverageFrames(quarterFrames);
-				frameMonitor.updateRenderInterval();
 				fpsTimer = System.currentTimeMillis();
 				quarterFrames = 0;
 			}
@@ -80,6 +80,11 @@ public class Game extends Canvas implements Runnable {
 				//System.out.println("Render interval: " + frameMonitor.renderInterval);
 				frames = 0;
 				timer = System.currentTimeMillis();
+			}
+			
+			if(System.currentTimeMillis() - longTimer >= (5000)) {
+				frameMonitor.updateRenderInterval();
+				longTimer = System.currentTimeMillis();
 			}
 		}
 		stop();
