@@ -3,7 +3,7 @@ package com.tutorial.main;
 import java.awt.Graphics;
 
 public abstract class GameObject {
-
+	
 	protected int x, y;
 	protected ID id;
 	protected double velX, velY;
