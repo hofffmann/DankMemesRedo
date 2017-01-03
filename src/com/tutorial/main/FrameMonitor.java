@@ -9,7 +9,7 @@ public class FrameMonitor {
 	int updatesPerSecond;
 	
 	// Derived values set in constructor
-	int averageFrames;
+	double averageFrames;
 	int quarterFrames;
 	int renderInterval;
 	
@@ -32,28 +32,36 @@ public class FrameMonitor {
 		if(!frameHistoryFull){
 			frameHistory[frameHistoryIndex] = frames;
 			frameHistorySum += frames;
-			frameHistoryIndex++;
+			averageFrames = (double)frameHistorySum / (double)(frameHistoryIndex + 1);
 			if(frameHistoryIndex == frameHistorySize){
 				frameHistoryIndex = 0;
 				frameHistoryFull = true;
 			}
-			averageFrames = frameHistorySum / frameHistoryIndex;
+			frameHistoryIndex++;
 			//return frameHistorySum / frameHistoryIndex;
 		}else{
 			frameHistorySum -= frameHistory[frameHistoryIndex];
 			frameHistorySum += frames;
 			frameHistory[frameHistoryIndex] = frames;
-			frameHistoryIndex++;
+			if(frameHistoryIndex < (frameHistorySize - 1)){
+				frameHistoryIndex++;
+			}else{
+				frameHistoryIndex = 0;
+			}
 			averageFrames = frameHistorySum / frameHistorySize;
 			//return frameHistorySum / frameHistoryNum;
 		}
 	}
 	
 	public void updateRenderInterval(){
-		int averageFramesPerSecond = averageFrames * updatesPerSecond;
+		double averageFramesPerSecond = averageFrames * updatesPerSecond;
 		double percentOffBy = (1.0 - ((double)averageFramesPerSecond / (double)gameFPS));
-		// Add half the difference
-		int amountToAdd = (int) (.5 * percentOffBy * renderInterval);
+		// Add an eigth of the difference
+		int amountToAdd = -1 * (int) ((1/8) * percentOffBy * renderInterval);
 		renderInterval += amountToAdd;
+		
+		System.out.print("AverageFramesPerSecond: " + averageFramesPerSecond + ", ");
+		System.out.print("percentOffBy: " + percentOffBy + ", ");
+		System.out.println("amountToAdd: " + amountToAdd);
 	}
 }
