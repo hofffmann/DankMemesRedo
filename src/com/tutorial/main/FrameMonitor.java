@@ -62,8 +62,8 @@ public class FrameMonitor {
 			return;
 		}
 		
-		// Add an eighth of the difference
-		int amountToAdd = -1 * (int) ((1.0/8) * percentOffBy * (double)renderInterval);
+		// Maybe add only a fraction of the difference
+		int amountToAdd = -1 * (int) ((1.0) * percentOffBy * (double)renderInterval);
 		renderInterval += amountToAdd;
 		
 		System.out.print("AverageFramesPerSecond: " + averageFramesPerSecond + ", ");

@@ -69,8 +69,11 @@ public class Game extends Canvas implements Runnable {
 			tick();
 			
 			long difference = System.nanoTime() - lastRenderTime;
-			renderSum += difference;
+			long differenceBetweenDesiredInterval = difference - frameMonitor.renderInterval;
+			renderSum += differenceBetweenDesiredInterval;
 			sums++;
+			//System.out.println("Average delay in ns: " + (renderSum / sums));
+			System.out.println("Time passed: " + differenceBetweenDesiredInterval);
 			
 			render();
 			lastRenderTime = System.nanoTime();
@@ -84,7 +87,7 @@ public class Game extends Canvas implements Runnable {
 			}
 			
 			if(System.currentTimeMillis() - timer >= (1000)) {
-				System.out.println("FPS: " + frames + ", Average delay in ns: " + (renderSum / sums));
+				System.out.println("FPS: " + frames);
 				//System.out.println("Render interval: " + frameMonitor.renderInterval);
 				frames = 0;
 				timer = System.currentTimeMillis();
