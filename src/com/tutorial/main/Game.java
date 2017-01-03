@@ -62,23 +62,51 @@ public class Game extends Canvas implements Runnable {
 		long renderSum = 0;
 		long sums = 0;
 		
+		long oneMillisecondInNS = 1000000;
+		
+		double dx = 0;
+		
+		long now = System.nanoTime();
+		long lastTime = System.nanoTime();
+		
 		while(running) {
-			sleepNanos((long)frameMonitor.renderInterval);
+			//sleepNanos((long)(frameMonitor.renderInterval * .9));
 			//sleepNanos((long)(1000000000 / fps));
 			
-			tick();
+			//dx += ((double)(System.nanoTime() - lastRenderTime) / (double)frameMonitor.renderInterval);
+			//System.out.println(dx);
 			
-			long difference = System.nanoTime() - lastRenderTime;
-			long differenceBetweenDesiredInterval = difference - frameMonitor.renderInterval;
-			renderSum += differenceBetweenDesiredInterval;
-			sums++;
-			//System.out.println("Average delay in ns: " + (renderSum / sums));
-			System.out.println("Time passed: " + differenceBetweenDesiredInterval);
+			/*
+			while((lastRenderTime + frameMonitor.renderInterval) - System.nanoTime() > 600000){
+				// Sleep for half the remaining time
+				sleepNanos( (long) (.5) * (lastRenderTime + frameMonitor.renderInterval) - System.nanoTime());
+			}
+			*/
 			
-			render();
-			lastRenderTime = System.nanoTime();
-			frames++;
-			quarterFrames++;
+			
+			while(dx<1){
+				now = System.nanoTime();
+				long timePassed = now - lastTime;
+				lastTime = now;
+				//dx += ((double)(System.nanoTime() - lastRenderTime) / (double)frameMonitor.renderInterval);
+				dx += ((double)(timePassed) / (double)(1000000000.0/fps));
+				//System.out.println("dx: " + dx);
+			}
+			
+			while(dx >= 1){
+				long difference = System.nanoTime() - lastRenderTime;
+				long differenceBetweenDesiredInterval = difference - frameMonitor.renderInterval;
+				tick();
+				render();
+				lastRenderTime = System.nanoTime();
+				dx--;
+				frames++;
+				quarterFrames++;
+				
+				renderSum += differenceBetweenDesiredInterval;
+				sums++;
+				//System.out.println("Time passed: " + differenceBetweenDesiredInterval);
+			}
 			
 			if(System.currentTimeMillis() - fpsTimer >= frameMonitorSleepTime) {
 				frameMonitor.updateAverageFrames(quarterFrames);
