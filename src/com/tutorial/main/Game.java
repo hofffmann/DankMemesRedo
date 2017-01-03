@@ -50,13 +50,21 @@ public class Game extends Canvas implements Runnable {
 		double delta = 0;
 		long timer = System.currentTimeMillis();
 		int frames = 0;
+		long timeOfLastRender = System.nanoTime();
+		long differenceSum = 0;
+		long sums = 0;
 		while(running) {
 			long now = System.nanoTime();
 			delta += (now-lastTime) / ns;
 			lastTime = now;
 			while(delta >= 1) {
 				tick();
+				long difference = System.nanoTime() - timeOfLastRender;
+				differenceSum += difference;
+				sums++;
+				System.out.println("Average difference: " + differenceSum / sums);
 				render();
+				timeOfLastRender = System.nanoTime();
 				delta--;
 				frames++;
 			}
