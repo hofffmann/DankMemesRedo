@@ -102,7 +102,7 @@ public class Game extends Canvas implements Runnable {
 		long renderSum = 0;
 		long sums = 0;
 		
-		long oneMillisecondInNS = 1000000;
+		long oneMillisecondInNS = 1000000; // Testing a thing
 		
 		double dx = 0;
 		
