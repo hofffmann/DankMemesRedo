@@ -27,9 +27,11 @@ public class Game extends Canvas implements Runnable {
 
 		window = new Window(WIDTH, HEIGHT, "How to Game", this);
 
-		handler.addObject(new Player((int)128 - window.frame.getInsets().left, (int)HEIGHT/2 - (64 + (window.frame.getInsets().top)), ID.Player1, this));
-		handler.addObject(new Player((int)WIDTH-(128 + 2 * (window.frame.getInsets().left + window.frame.getInsets().right)), (int)HEIGHT/2 - (64 + (window.frame.getInsets().top)), ID.Player2, this));
-		handler.addObject(new Ball(WIDTH/2, HEIGHT/2, ID.Ball, this));
+		//handler.addObject(new Player((int)128 - window.frame.getInsets().left, (int)HEIGHT/2 - (64 + (window.frame.getInsets().top)), ID.Player1, this));
+		//handler.addObject(new Player((int)WIDTH-(128 + 2 * (window.frame.getInsets().left + window.frame.getInsets().right)), (int)HEIGHT/2 - (64 + (window.frame.getInsets().top)), ID.Player2, this));
+		handler.addObject(new Player((int)128 - window.frame.getInsets().left, (int)HEIGHT/2 - (window.frame.getInsets().top), ID.Player1, this));
+		handler.addObject(new Player((int)WIDTH-(128 + (window.frame.getInsets().left + window.frame.getInsets().right)), (int)HEIGHT/2 - window.frame.getInsets().top, ID.Player2, this));
+		handler.addObject(new Ball(WIDTH/2-window.frame.getInsets().left, HEIGHT/2, 32, ID.Ball, this));
 	}
 
 	public synchronized void start(){

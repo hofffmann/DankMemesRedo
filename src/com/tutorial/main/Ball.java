@@ -5,51 +5,74 @@ import java.awt.Graphics;
 import java.util.Random;
 
 public class Ball extends GameObject {
-	
-	Random r = new Random();
+
 	protected int speed;
-	final int size = 32;
-	
-	public Ball(int x, int y, ID id, Game game) {
-		super (x, y, id, game);
+	int diameter = 32;
+
+	public Ball(int x, int y, int diameter, ID id, Game game) {
+		super (x-diameter/2, y-diameter, id, game);
 		velX = 5;
 		velY = 5;
+		this.diameter = diameter;
 	}
-	
+
 	public void checkScore() {
-		//if(x > .x)
+		
 	}
-	
+
 	public void collision() {
+		wallCollision();
+		paddleCollision(ID.Player1);
+		paddleCollision(ID.Player2);
+	}
+
+	public void wallCollision() {
 		if(x<0) {
 			x = 0;
 			velX = -1 * velX;
 		}
-		if(x > Game.WIDTH - (Game.window.frame.getInsets().left + Game.window.frame.getInsets().right) - size) {
-			x = Game.WIDTH - (Game.window.frame.getInsets().left + Game.window.frame.getInsets().right) - size;
+		if(x > Game.WIDTH - (Game.window.frame.getInsets().left + Game.window.frame.getInsets().right) - diameter) {
+			x = Game.WIDTH - (Game.window.frame.getInsets().left + Game.window.frame.getInsets().right) - diameter;
 			velX = -1 * velX;
 		}
 		if(y<0) {
 			y = 0;
 			velY = -1 * velY;
 		}
-		if(y > Game.HEIGHT - (Game.window.frame.getInsets().top + Game.window.frame.getInsets().bottom) - size) {
-			y = Game.HEIGHT - (Game.window.frame.getInsets().top + Game.window.frame.getInsets().bottom) - size;
+		if(y > Game.HEIGHT - (Game.window.frame.getInsets().top + Game.window.frame.getInsets().bottom) - diameter) {
+			y = Game.HEIGHT - (Game.window.frame.getInsets().top + Game.window.frame.getInsets().bottom) - diameter;
 			velY = -1 * velY;
 		}
-		playerCollision();
 	}
-	
-	public void playerCollision() {
-		Player player1 = (Player)game.handler.getObject(ID.Player1);
-		Player player2 = (Player)game.handler.getObject(ID.Player2);
-		if((Math.abs(x - player1.x) <= 20) && (Math.abs(y - player1.y) <= (player1.height/2))){
-			velX = -1 * velX;
-		}else if((Math.abs(x - player2.x) <= 20) && (Math.abs(y - player2.y) <= (player2.height/2))){
-			velX = -1 * velX;
+
+	public void paddleCollision(ID playerID) {
+		Player player = (Player)game.handler.getObject(playerID);
+
+		if((Math.abs(x - player.x) <= (diameter + player.width/2)) && (Math.abs(y - player.y) <= (player.height/2))){
+			// If the x velocity of the ball is going away from the paddle, don't switch
+			// First, determine which side of the paddle the ball is on
+			if(x > player.x){
+				// Ball is on the right
+				// If the x velocity is positive, don't modify it
+				if(velX > 0){
+
+				}else{
+					System.out.println("Collision! Ball: (" + x + "," + y + "), " + playerID.toString() + ": (" + player.x + "," + player.y + ")");
+					velX = -1 * velX;
+				}
+			}else{
+				// Ball is on the left
+				// If the x velocity is negative, don't modify it
+				if(velX < 0){
+
+				}else{
+					System.out.println("Collision! Ball: (" + x + "," + y + "), " + playerID.toString() + ": (" + player.x + "," + player.y + ")");
+					velX = -1 * velX;
+				}
+			}
 		}
 	}
-	
+
 	public int speed() {
 		int x = 24 * (int)Math.sqrt(Math.pow(velX, 2) + Math.pow(velY, 2));
 		if(x > 255)x = 255;
@@ -59,7 +82,7 @@ public class Ball extends GameObject {
 	public void tick() {
 		collision();
 		//checkScore();
-		
+
 		long nanosecondsSinceLastRender = (System.nanoTime() - Game.lastRenderTime);
 		float interval = 1.7E7f;
 		float mult = nanosecondsSinceLastRender / interval;
@@ -69,7 +92,11 @@ public class Ball extends GameObject {
 
 	public void render(Graphics g) {
 		g.setColor(new Color(255, 255 - speed(), 255 - speed()));
-		g.fillOval(x, y, size, size);
+		g.fillOval(x-(diameter/2), y-(diameter/2), diameter, diameter);
+		//g.setColor(Color.BLUE);
+		//g.fillOval(640/2-diameter/2-game.window.frame.getInsets().left, 480/2-diameter, diameter, diameter);
+		//g.setColor(Color.BLACK);
+		//g.drawLine(640/2, 480/2, 640/2, 480/2);
 	}
 
 }

@@ -2,70 +2,19 @@ package com.tutorial.main;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.Random;
 
 public class Player extends GameObject {
 
-	Random r = new Random();
-	final int height = 128, size = 24;
+	final int width = 24, height = 128;
 	
 	public Player(int x, int y, ID id, Game game) {
 		super(x, y, id, game);
 	}
 	
 	public void movement() {
-		//x axis is unused for movement in Pong.
-/*		if(left && right) 
-		{
-			if(velX < 0) {
-				velX += 1;
-				
-			if(velX > -2) 
-				velX = 0;
-			}
-			
-			if(velX > 0) {
-				velX -= 1;
-				
-			if(velX < 2)
-				velX = 0;
-			}
-		}
-		else
-		{
-			if(left) {
-				if(Math.abs(velY) > 5)velX -= 2;
-				else
-				velX -= 0.5;
-			}
-			if(right) {
-				if(Math.abs(velY) > 5)velX += 2;
-				else
-				velX += 0.5;
-			}
-		}
-
-		if(!left && !right)
-		{
-			if(velX < 0) {
-				velX += 1;
-				
-			if(velX > -2) 
-				velX = 0;
-			}
-			
-			if(velX > 0) {
-				velX -= 1;
-				
-			if(velX < 2)
-				velX = 0;
-			}
-		}*/
-		
 		long nanosecondsSinceLastRender = (System.nanoTime() - Game.lastRenderTime);
 		float interval = 1.7E7f;
 		float mult = nanosecondsSinceLastRender / interval;
-		//System.out.println(mult);
 		
 		if(up && down) 
 		{
@@ -121,16 +70,6 @@ public class Player extends GameObject {
 	}
 	
 	public void collision() {
-		//x is unused in Pong.
-		
-		/*if(x<0) {
-			x = 0;
-			velX = 0;
-		}
-		if(x > Game.WIDTH - (Game.window.frame.getInsets().left + Game.window.frame.getInsets().right) - size) {
-			x = Game.WIDTH - (Game.window.frame.getInsets().left + Game.window.frame.getInsets().right) - size;
-			velX = 0;
-		}*/
 		if(y<0) {
 			y = 0;
 			velY = 0;
@@ -148,15 +87,12 @@ public class Player extends GameObject {
 		y += velY;
 		
 		collision();
-
-		//System.out.println(velX + "\n" + velY);
-		//System.out.println(x + "\n" + y);
 	}
 
 	public void render(Graphics g) {
 		if(id == ID.Player1) g.setColor(Color.white);
 		else if(id == ID.Player2) g.setColor(Color.blue);
-		g.fillRect(x, y, size, height);
+		g.fillRect((x-width/2), (y-height/2), width, height);
 	}
 
 }
